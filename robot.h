@@ -4,7 +4,7 @@
 
 class robot{
 public:
-    robot(const geom::point& position);
+    robot(int x,int y);
     int positionX()const;
     int positionY()const;
     void avance(int pas);
