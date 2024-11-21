@@ -1,5 +1,5 @@
-#ifndef ALGOMAINDROITE_H
-#define ALGOMAINDROITE_H
+#ifndef ALGORITHME_H
+#define ALGORITHME_H
 #include "Robot.h"
 
 
