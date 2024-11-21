@@ -2,10 +2,10 @@
 
 
 
-Algorythme::Algorythme(Robot r){
+Algorithme::Algorithme(Robot r){
     this->d_robot=r;
 }
-void Algorythme::algoMainDroite(){
+void AlgorithmeMainDroite::typeAlgo(){
 
     while(d_robot.d_terrain.getGrille(d_robot.getX(),d_robot.getY())!='S'){
         if(d_robot.isObstacleDevant()){
