@@ -18,6 +18,7 @@ class AlgoMainDroite : public Algorithme{
     public:
         void typeAlgo()override;
 };
+
 class AlgoPledge : public Algorithme{
     public:
         void typeAlgo()override;
