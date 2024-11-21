@@ -4,17 +4,24 @@
 
 
 
-class Algorythme{
+class Algorithme{
     private:
         Robot d_robot;
     public:
-        Algorythme(Robot r); 
-
-        void algoMainDroite();
-        void algoPledge();   
-    
+        virtual ~Algorithme=default;
+        Algorithme(Robot r); 
+        virtual void typeAlgo()=0;
+        
 };
 
+class AlgoMainDroite : public Algorithme{
+    public:
+        void typeAlgo()override;
+};
+class AlgoPledge : public Algorithme{
+    public:
+        void typeAlgo()override;
+};
 
 
 
