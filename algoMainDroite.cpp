@@ -1,4 +1,4 @@
-#include "algoMainDroite.h"
+#include "algorithme.h"
 
 
 
