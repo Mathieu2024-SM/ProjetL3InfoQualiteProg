@@ -1,21 +1,25 @@
 #include "robot.h"
 
-robot::robot(const geom::point& position):d_position{position},d_orientation{0}//j ai choisi une orientation au pif
+robot::robot(int x,int y):d_x{x},d_y{y},d_orientation{0}//j ai choisi une orientation au pif
 {
 
 }
-geom::point robot::position()const
+int robot::positionX()const
 {
-    return d_position;
+    return d_x;
+}
+int robot::positionY()const
+{
+    return d_y;
 }
 void robot::avance(int pas)
 {
     switch(d_orientation)
     {
-      case 0 : d_position.moveTo(0,pas); break; //translation vers le haut
-      case 1 : d_position.moveTo(-pas,0); break; //translation vers le gauche
-      case 2 : d_position.moveTo(0,-pas); break; //translation vers le bas
-      case 3 : d_position.moveTo(pas,0); break; //translation vers le droite
+      case 0 : d_y +=pas; break; //translation vers le haut
+      case 1 : d_x -=pas; break; //translation vers le gauche
+      case 2 : d_y -=pas; break; //translation vers le bas
+      case 3 : d_x +=pas; break; //translation vers le droite
 
       default: ;
     }
