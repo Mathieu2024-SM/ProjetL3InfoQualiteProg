@@ -1,6 +1,5 @@
 #ifndef ROBOT_H
 #define ROBOT_H
-#include "point.h"
 
 class robot{
 public:
