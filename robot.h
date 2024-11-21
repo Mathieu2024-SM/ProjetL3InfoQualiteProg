@@ -1,17 +1,25 @@
-#ifndef ROBOT_H
-#define ROBOT_H
+#ifndef ROBOT_H_INCLUDED
+#define ROBOT_H_INCLUDED
 
-class robot{
-public:
-    robot(int x,int y);
-    int positionX()const;
-    int positionY()const;
-    void avance(int pas);
-    void tourneAGauche();
-    void tourneADroite();
+//#include "EtatRobot.h"
+
+
+class Robot {
 private:
+    int x, y;
+    char d_forme;
+    int d_ort;
 
-    int d_x,d_y;
-    int d_orientation; //0 = ^ ,1 = <, 2 = v, 3 = >
+public:
+     Robot(int xInitial, int yInitial ,char forme);
+     int getX() const;
+     int getY() const;
+     void afficherposition(int newX, int newY);
+
+     int orientation()const;
+     void tourneAGauche();
+     void tourneADroite();
+
 };
-#endif // ROBOT_H
+
+#endif

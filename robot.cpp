@@ -1,34 +1,38 @@
-#include "robot.h"
+#include "Robot.h"
+#include <iostream>
+#include <ctime>
 
-robot::robot(int x,int y):d_x{x},d_y{y},d_orientation{0}//j ai choisi une orientation au pif
-{
+// Constructeur
+Robot::Robot(int xInitial, int yInitial,char forme)
+    : x(xInitial), y(yInitial),d_forme{forme},d_ort{rand() % 4} {}
 
+// Met à jour la position du robot
+void Robot::afficherposition(int newX, int newY) {
+    x = newX;
+    y = newY;
+    std::cout << "[Robot] Position mise à jour : (" << x << ", " << y << ")" << std::endl;
 }
-int robot::positionX()const
-{
-    return d_x;
-}
-int robot::positionY()const
-{
-    return d_y;
-}
-void robot::avance(int pas)
-{
-    switch(d_orientation)
-    {
-      case 0 : d_y +=pas; break; //translation vers le haut
-      case 1 : d_x -=pas; break; //translation vers le gauche
-      case 2 : d_y -=pas; break; //translation vers le bas
-      case 3 : d_x +=pas; break; //translation vers le droite
 
-      default: ;
+ // Getter pour la position en X
+    int Robot:: getX() const {
+        return x;
     }
-}
-void robot::tourneAGauche()
+
+    // Getter pour la position en Y
+    int Robot:: getY() const {
+        return y;
+    }
+
+
+int Robot::orientation()const
 {
-    d_orientation = (d_orientation - 1) % 4;
+    return d_ort;
 }
-void robot::tourneADroite()
+void Robot::tourneAGauche()
 {
-    d_orientation = (d_orientation + 1) % 4;
+    d_ort = (d_ort - 1) % 4;
+}
+void Robot::tourneADroite()
+{
+    d_ort = (d_ort + 1) % 4;
 }
