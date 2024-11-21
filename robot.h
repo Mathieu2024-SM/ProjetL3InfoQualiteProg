@@ -5,13 +5,14 @@
 class robot{
 public:
     robot(const geom::point& position);
-    geom::point position()const;
+    int positionX()const;
+    int positionY()const;
     void avance(int pas);
     void tourneAGauche();
     void tourneADroite();
 private:
 
-    geom::point d_position;
+    int d_x,d_y;
     int d_orientation; //0 = ^ ,1 = <, 2 = v, 3 = >
 };
 #endif // ROBOT_H
