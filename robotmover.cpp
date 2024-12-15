@@ -1,10 +1,10 @@
 #include "robotmover.h"
 
-void robotGauche::deplaceRobot(robot& r)
+void robotGauche::deplaceRobot(Robot& r)
 {
     r.tourneAGauche();
 }
-void robotDroite::deplaceRobot(robot& r)
+void robotDroite::deplaceRobot(Robot& r)
 {
     r.tourneADroite();
 }
@@ -12,7 +12,7 @@ robotAvance::robotAvance(int pas):d_pas{pas}
 {
 
 }
-void robotAvance::deplaceRobot(robot& r)
+void robotAvance::deplaceRobot(Robot& r)
 {
-    r.avance(d_pas);
+    r.Avance();
 }

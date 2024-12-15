@@ -27,9 +27,11 @@ class Terrain{
         void chargerTerrainDepuis(std::string chemin);
         void sauverTerrainSur(std::string cheminFichier) const;
         void afficherTerrain() const;
+        bool Obstacle(int x,int y);
 		
         void modifierElementGrille(int x , int y, char ch);
-        char afficherElementGrille(int x, int y);   
+        char afficherElementGrille(int x, int y);  
+        void donnerElementGrille(int x , int y, char ch); 
 };
 
 #endif

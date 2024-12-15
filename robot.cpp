@@ -3,14 +3,17 @@
 #include <ctime>
 
 // Constructeur
+
 Robot::Robot(int xInitial, int yInitial,char forme)
     : x(xInitial), y(yInitial),d_forme{forme},d_ort{rand() % 4} {}
 
-// Met à jour la position du robot
+Robot::Robot(){}
+
+// Met ï¿½ jour la position du robot
 void Robot::afficherposition(int newX, int newY) {
     x = newX;
     y = newY;
-    std::cout << "[Robot] Position mise à jour : (" << x << ", " << y << ")" << std::endl;
+    std::cout << "[Robot] Position mise ï¿½ jour : (" << x << ", " << y << ")" << std::endl;
 }
 
  // Getter pour la position en X
@@ -35,4 +38,54 @@ void Robot::tourneAGauche()
 void Robot::tourneADroite()
 {
     d_ort = (d_ort + 1) % 4;
+}
+
+bool Robot::ObstacleDevant(Terrain t){
+    int obstacle_X=x;
+    int obstacle_Y=y;
+
+    if(d_ort == 2){
+        obstacle_Y--;
+        
+    }
+    if(d_ort==1){
+        obstacle_X++;
+        
+    }
+    if(d_ort==0){
+        obstacle_Y++;
+        
+    }
+    if(d_ort==3){
+        obstacle_X--;
+        
+    }
+    if(t.Obstacle(obstacle_X,obstacle_Y)){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+bool Robot::ObstacleDroite(Terrain t){
+    int direction_simule=d_ort;
+                                                   
+    if(d_ort == 2){
+        d_ort=3;
+    }
+    if(d_ort==1){
+        d_ort=2;                              
+    }
+    if(d_ort==0){
+        d_ort=1;   
+    }
+    
+    if(d_ort==3){
+        d_ort=0;                                
+    }
+    bool obstacle=ObstacleDevant(t);
+    d_ort=direction_simule;
+
+    return obstacle;
+    
 }

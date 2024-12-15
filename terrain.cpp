@@ -66,4 +66,12 @@ char Terrain::afficherElementGrille(int x, int y){
     return d_grille[x][y];
 }
 
+bool Terrain::Obstacle(int x,int y){
+    if (d_grille[x][y] == 'X' ){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 
