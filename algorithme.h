@@ -5,12 +5,12 @@
 
 
 class Algorithme{
-    private:
+    protected:
         Robot d_robot;
     public:
-        virtual ~Algorithme=default;
+        virtual ~Algorithme()=default;
         Algorithme(Robot r); 
-        virtual void typeAlgo()=0;
+        virtual void typeAlgo(Terrain t)=0;
         
 };
 
@@ -22,12 +22,12 @@ class Algorithme{
 
 class AlgoMainDroite : public Algorithme{
     public:
-        void typeAlgo()override;
+        void typeAlgo(Terrain t)override;
 };
 
 class AlgoPledge : public Algorithme{
     public:
-        void typeAlgo()override;
+        void typeAlgo(Terrain t)override;
 };
 
 
