@@ -4,8 +4,8 @@
 
 // Constructeur
 
-Robot::Robot(int xInitial, int yInitial,char forme)
-    : x(xInitial), y(yInitial),d_forme{forme},d_ort{rand() % 4} {}
+Robot::Robot(int xInitial, int yInitial)
+    : x(xInitial), y(yInitial),d_ort{rand() % 4} {}
 
 Robot::Robot(){}
 
