@@ -2,9 +2,7 @@
 #include "terrain.h"
 
 
-Algorithme::Algorithme(Robot r):d_robot{r}{
-    
-}
+
 void AlgoMainDroite::typeAlgo(Terrain terrain){
 
     while(terrain.afficherElementGrille(d_robot.getX(),d_robot.getY())!='A'){
