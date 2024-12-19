@@ -7,7 +7,6 @@
 class Algorithme{
     public:
         virtual ~Algorithme()=default;
-        Algorithme(); 
         virtual void typeAlgo(const Terrain& t,robot &r)=0;   
 };
 
