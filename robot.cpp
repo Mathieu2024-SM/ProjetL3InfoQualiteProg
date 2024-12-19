@@ -91,5 +91,5 @@ bool Robot::ObstacleDroite(Terrain t){
 }
 void robot::recupereEtat()
 {
-    std::cout<<d_x<<' '<<d_y<<' '<<d_pos
+    std::cout<<d_x<<' '<<d_y<<' '<<d_ort<<'\n';
 }
