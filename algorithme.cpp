@@ -3,48 +3,48 @@
 
 
 
-void AlgoMainDroite::typeAlgo(Terrain terrain){
+void AlgoMainDroite::typeAlgo(const Terrain& t,robot &r){
 
-    while(terrain.afficherElementGrille(d_robot.getX(),d_robot.getY())!='A'){
-        if(d_robot.ObstacleDevant(terrain)){
-            d_robot.tourneAGauche();
+    while(terrain.afficherElementGrille(r.getX(),r.getY())!='A'){
+        if(r.ObstacleDevant(t)){
+            r.tourneAGauche();
 
         }
-        if(!d_robot.ObstacleDevant(terrain)){
-            while(!d_robot.ObstacleDevant(terrain)){
-                d_robot.Avance();
+        if(!r.ObstacleDevant(t)){
+            while(!r.ObstacleDevant(t)){
+                r.Avance();
             }
         }
-        if(!d_robot.ObstacleDroite(terrain)){
-            d_robot.tourneADroite();
+        if(!r.ObstacleDroite(t)){
+            r.tourneADroite();
         }
-        d_robot.Avance();
+        r.Avance();
     }
 }
 
 
-void AlgoPledge::typeAlgo(Terrain terrain){
+void AlgoPledge::typeAlgo(const Terrain& t,robot &r){
     int compteur =0;
-    while(terrain.afficherElementGrille(d_robot.getX(),d_robot.getY())!='A'){
+    while(t.afficherElementGrille(r.getX(),r.getY())!='A'){
         
-        while(!d_robot.ObstacleDevant(terrain)){
-            d_robot.Avance();
+        while(!r.ObstacleDevant(t)){
+            r.Avance();
         }
         do{
             
-            if(d_robot.ObstacleDevant(terrain)){
-                d_robot.tourneAGauche();
+            if(r.ObstacleDevant(t)){
+                r.tourneAGauche();
                 compteur++;
             }
-            else if(!d_robot.ObstacleDroite(terrain)){
-                d_robot.tourneADroite();
+            else if(!r.ObstacleDroite(t)){
+                r.tourneADroite();
                 compteur--;
-                if(!d_robot.ObstacleDevant(terrain)){
-                    d_robot.Avance();
+                if(!r.ObstacleDevant(t)){
+                    r.Avance();
                 }         
             }
             else{
-                d_robot.Avance();
+                r.Avance();
             }
         }while(compteur!=0);      
     }
