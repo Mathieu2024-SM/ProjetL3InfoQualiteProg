@@ -22,6 +22,7 @@ public:
     void tourneAGauche();
     void tourneADroite();
     void Avance();
+    void recupereEtat();
     
     bool ObstacleDevant(Terrain t)const;
     bool ObstacleDroite(Terrain t)const;
