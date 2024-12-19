@@ -5,13 +5,10 @@
 
 
 class Algorithme{
-    private:
-        Robot d_robot;
     public:
         virtual ~Algorithme()=default;
-        Algorithme(Robot r); 
-        virtual void typeAlgo(const Terrain& t)=0;
-        
+        Algorithme(); 
+        virtual void typeAlgo(const Terrain& t,robot &r)=0;   
 };
 
 
@@ -22,12 +19,12 @@ class Algorithme{
 
 class AlgoMainDroite : public Algorithme{
     public:
-        void typeAlgo(const Terrain& t)override;
+        void typeAlgo(const Terrain& t,robot &r)override;
 };
 
 class AlgoPledge : public Algorithme{
     public:
-        void typeAlgo(const Terrain& t)override;
+        void typeAlgo(const Terrain& t,robot &r)override;
 };
 
 
