@@ -2,8 +2,8 @@
 #include "terrain.h"
 
 
-Algorithme::Algorithme(Robot r){
-    this->d_robot=r;
+Algorithme::Algorithme(Robot r):d_robot{r}{
+    
 }
 void AlgoMainDroite::typeAlgo(Terrain terrain){
 
