@@ -1,11 +1,11 @@
 #include "observateur.h"
 #include <iostream>
 
-observateur::observateur(int x, int y, int direction)
-    : d_x{x}, d_y{y}, d_direction{direction}
+observateur::observateur(int positionX, int positionY, int direction)
+    : d_positionX{positionX}, d_positionY{positionY}, d_direction{direction}
 {}
 
 void observateur::afficheobservation() {
-    std::cout << "Position du robot : (" << d_x << ", " << d_y << ")"
+    std::cout << "Position du robot : (" << d_positionX << ", " << d_positionY << ")"
               << " Direction: " << d_direction << std::endl;
 }
