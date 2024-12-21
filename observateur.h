@@ -5,15 +5,12 @@
 class observateur
 {
     public:
-        observateur(int x , int y , int direction );
-        void afficheobservation();
-
-
-
+        observateur(int positionX , int positionY , int direction );
+        void afficheObservation();
 
     private:
-        int d_x;
-        int d_y;
+        int d_positionX;
+        int d_positionY;
         int d_direction;
 
 };
