@@ -9,11 +9,11 @@ Robot::Robot(int xInitial, int yInitial)
 
 Robot::Robot(){}
 
-// Met � jour la position du robot
+// Met a jour la position du robot
 void Robot::afficherposition(int newX, int newY) {
     x = newX;
     y = newY;
-    std::cout << "[Robot] Position mise � jour : (" << x << ", " << y << ")" << std::endl;
+    std::cout << "[Robot] Position mise a jour : (" << x << ", " << y << ")" << std::endl;
 }
 
  // Getter pour la position en X
