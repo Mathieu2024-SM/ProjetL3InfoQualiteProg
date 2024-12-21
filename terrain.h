@@ -21,7 +21,7 @@ class Terrain{
         Terrain(int hauteur , int largeur); // Constructeur
         Terrain(); // Constructeur par defaut
 		
-		int hauteur()const;
+	int hauteur()const;
         int largeur()const; 
 		
         void chargerTerrainDepuis(std::string chemin);
