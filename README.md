@@ -6,7 +6,7 @@ FANGER Cantin - développeur - L3 Informatique
 
 ZEROUAL Samy - développeur - L3 Informatique
 
-BENTRANTI Kenza - développeur - L3 Informatique
+BENTRANTI Kenza - développeuse - L3 Informatique
 
 BUTS ET OBJECTIFS DU PROJET
 
