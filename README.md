@@ -1,8 +1,11 @@
 MEMBRES DU GROUPE
 
 SCHELLENBAUM Mathieu - chef de projet - L3 Informatique
+
 FANGER Cantin - développeur - L3 Informatique
+
 ZEROUAL Samy - développeur - L3 Informatique
+
 BENTRANTI Kenza - développeur - L3 Informatique
 
 BUTS ET OBJECTIFS DU PROJET
