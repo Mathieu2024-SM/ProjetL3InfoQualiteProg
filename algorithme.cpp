@@ -1,51 +1,108 @@
 #include "algorithme.h"
 #include "terrain.h"
 
+Algorithme::Algorithme(Robot &r) : d_robot{r}{}
 
+AlgoMainDroite::AlgoMainDroite(Robot &r) : Algorithme{r}{}
 
-void AlgoMainDroite::typeAlgo(const Terrain& t,robot &r){
+void AlgoMainDroite::affecterPositionDebutRobot(Terrain &t) {
+    int maxAttempts = 100; //on le fixe
+    int attempts = 0;
 
-    while(terrain.afficherElementGrille(r.getX(),r.getY())!='A'){
-        if(r.ObstacleDevant(t)){
-            r.tourneAGauche();
-
+    while (attempts < maxAttempts) {
+        auto [x, y] = t.positionAleatoireLibrePourRobot();
+        if (t.afficherElementGrille(x, y) != 'X') {
+            d_robot.placerSur(x, y);
+            std::cout << "Position initiale du robot pour Main droite : (" << d_robot.getX() << ", " << d_robot.getY() << ")" << std::endl;
+            return;
         }
-        if(!r.ObstacleDevant(t)){
-            while(!r.ObstacleDevant(t)){
-                r.Avance();
-            }
-        }
-        if(!r.ObstacleDroite(t)){
-            r.tourneADroite();
-        }
-        r.Avance();
+        attempts++;
     }
+
+    std::cerr << "Erreur : Impossible de placer le robot sur une position valide !" << std::endl;
 }
 
 
-void AlgoPledge::typeAlgo(const Terrain& t,robot &r){
+void AlgoMainDroite::typeAlgo(Terrain& terrain){
+    affecterPositionDebutRobot(terrain);
+
+    if(!d_robot.ObstacleDevant(terrain)){
+        while(!d_robot.ObstacleDevant(terrain)){
+            d_robot.avance();
+        }
+    }
+
+    while(terrain.afficherElementGrille(d_robot.getX(),d_robot.getY())!='A'){
+        if(d_robot.ObstacleDevant(terrain)){
+            d_robot.tourneAGauche();
+        }
+        else if(!d_robot.ObstacleDevant(terrain)){
+            while(!d_robot.ObstacleDevant(terrain) && d_robot.ObstacleDroite(terrain)){
+                d_robot.avance();
+            }
+
+            if(!d_robot.ObstacleDroite(terrain)){
+                d_robot.tourneADroite();
+                d_robot.avance();
+            }
+        }
+    }
+    std::cout << "Le robot a atteint la case d'arrivee !" << std::endl;
+    std::cout<<"Element de la grille du robot :"<<terrain.afficherElementGrille(d_robot.getX(), d_robot.getY())<<std::endl;
+}
+
+AlgoPledge::AlgoPledge(Robot &r) : Algorithme{r}{}
+
+void AlgoPledge::affecterPositionDebutRobot(Terrain &t) {
+    int maxAttempts = 100;
+    int attempts = 0;
+
+    while (attempts < maxAttempts) {
+        auto [x, y] = t.positionAleatoireLibrePourRobot();
+        if (t.afficherElementGrille(x, y) != 'X') {
+            d_robot.placerSur(x, y);
+            std::cout << "Position initiale du robot pour Pledge : (" << d_robot.getX() << ", " << d_robot.getY() << ")" << std::endl;
+            return;
+        }
+        attempts++;
+    }
+
+    std::cerr << "Erreur : Impossible de placer le robot sur une position valide !" << std::endl;
+}
+
+void AlgoPledge::typeAlgo(Terrain& terrain){
     int compteur =0;
-    while(t.afficherElementGrille(r.getX(),r.getY())!='A'){
-        
-        while(!r.ObstacleDevant(t)){
-            r.Avance();
+    affecterPositionDebutRobot(terrain);
+    while(terrain.afficherElementGrille(d_robot.getX(),d_robot.getY())!='A'){
+
+        while(!d_robot.ObstacleDevant(terrain)){
+            d_robot.avance();
+            //terrain.afficherTerrain(d_robot.getX(),d_robot.getY(),d_robot.formeRobot());
         }
         do{
-            
-            if(r.ObstacleDevant(t)){
-                r.tourneAGauche();
+            if(terrain.afficherElementGrille(d_robot.getX(),d_robot.getY())=='A'){
+                break;
+            }
+
+            if(d_robot.ObstacleDevant(terrain)){
+                d_robot.tourneAGauche();
                 compteur++;
             }
-            else if(!r.ObstacleDroite(t)){
-                r.tourneADroite();
+            else if(!d_robot.ObstacleDroite(terrain)){
+                d_robot.tourneADroite();
                 compteur--;
-                if(!r.ObstacleDevant(t)){
-                    r.Avance();
-                }         
+                if(!d_robot.ObstacleDevant(terrain)){
+                    d_robot.avance();
+                }
             }
             else{
-                r.Avance();
+                d_robot.avance();
             }
-        }while(compteur!=0);      
+            //terrain.afficherTerrain(d_robot.getX(),d_robot.getY(),d_robot.formeRobot());
+        }while(compteur!=0);
     }
+
+    std::cout << "Le robot a atteint la case d'arrivee !" << std::endl;
+    std::cout<<"Element de la grille du robot :"<<terrain.afficherElementGrille(d_robot.getX(), d_robot.getY())<<std::endl;
+
 }

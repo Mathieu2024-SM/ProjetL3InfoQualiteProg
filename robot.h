@@ -1,33 +1,39 @@
 #ifndef ROBOT_H_INCLUDED
 #define ROBOT_H_INCLUDED
 
-#include "terrain.h"
+#include "observateur.h"
+#include <vector>
 
-//#include "EtatRobot.h"
-
+class Terrain;
 
 class Robot {
 private:
-    int x, y;
-    int d_ort;
+    int d_x, d_y;
+    int d_orientation;
+    char d_formeRobot;
+    std::vector<observateur*> d_listeObservateurs;
 
 public:
     Robot(int xInitial, int yInitial);
     Robot();
+	~Robot(); // Destructeur pour gérer la mémoire des observateurs
+
     int getX() const;
     int getY() const;
-    void afficherposition (int newX, int newY)const;
+    int orientation() const;
+    char formeRobot() const;
 
-    int orientation()const;
+    void placerSur(int newX, int newY);
+    void modifierFormeSelon(int orientation);
+
     void tourneAGauche();
     void tourneADroite();
-    void Avance();
-    void recupereEtat();
-    
-    bool ObstacleDevant(Terrain t)const;
-    bool ObstacleDroite(Terrain t)const;
+    void avance();
 
-     
+    void recupereEtat();
+
+    bool ObstacleDevant(const Terrain& t);
+    bool ObstacleDroite(const Terrain& t);
 
 };
 

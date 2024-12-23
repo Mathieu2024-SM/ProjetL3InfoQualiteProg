@@ -2,35 +2,29 @@
 #define ALGORITHME_H
 #include "Robot.h"
 
+class Algorithme {
+public:
+    virtual ~Algorithme() = default;
+    Algorithme(Robot &r);
+    virtual void affecterPositionDebutRobot(Terrain& t) = 0;
+    virtual void typeAlgo(Terrain& t) = 0;
 
-
-class Algorithme{
-    public:
-        virtual ~Algorithme()=default;
-        virtual void typeAlgo(const Terrain& t,robot &r)=0;   
+protected:
+    Robot& d_robot;
 };
 
-
-//////////////////////////////////////////////////
-////////////////// CLASSE FILLE //////////////////
-//////////////////////////////////////////////////
-
-
-class AlgoMainDroite : public Algorithme{
-    public:
-        void typeAlgo(const Terrain& t,robot &r)override;
+class AlgoMainDroite : public Algorithme {
+public:
+    AlgoMainDroite(Robot& r);
+    void affecterPositionDebutRobot(Terrain& t) override;
+    void typeAlgo(Terrain& t) override;
 };
 
-class AlgoPledge : public Algorithme{
-    public:
-        void typeAlgo(const Terrain& t,robot &r)override;
+class AlgoPledge : public Algorithme {
+public:
+    AlgoPledge(Robot &r);
+    void affecterPositionDebutRobot(Terrain& t) override;
+    void typeAlgo(Terrain& t) override;
 };
-
-
-
-
-
-
-
 
 #endif

@@ -1,18 +1,20 @@
 #ifndef OBSERVATEUR_H
 #define OBSERVATEUR_H
 
+class observateur {
+public:
+    observateur(int positionX, int positionY, int direction);
 
-class observateur
-{
-    public:
-        observateur(int positionX , int positionY , int direction );
-        void afficheObservation();
+    int getPositionX()const;
+    int getPositionY()const;
+    int getDirection()const;
 
-    private:
-        int d_positionX;
-        int d_positionY;
-        int d_direction;
+    void afficheObservation() const;
 
+private:
+    int d_positionX;
+    int d_positionY;
+    int d_direction;
 };
 
-#endif // OBSERVATEUR_H
+#endif
