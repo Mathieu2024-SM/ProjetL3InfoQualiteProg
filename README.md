@@ -27,6 +27,7 @@ Chaque déplacement doit être notifié aux observateurs via un modèle de conce
 3.Algorithmes de sortie de labyrinthe :
 
 Main droite : Le robot suit un mur à droite (ou tout droit si aucun mur n'est présent au départ).
+
 Algorithme de Pledge : Le robot avance tout droit, contourne les murs en comptant les changements de direction, et reprend son chemin quand le compteur revient à zéro.
 
 4.Programme interactif en mode texte :
