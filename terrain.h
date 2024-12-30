@@ -5,12 +5,7 @@
 #include <iostream>
 #include <string>
 
-/**
-	Elements dans un terrain
-		'X' = un mur --> le robot ne doit pas aller dessus
-		'.' = une case vide --> le robot peut aller dessus
-		'A' = case d'arriver --> case où le robot doit arriver
-*/
+using std::string;
 
 class Terrain {
 private:
@@ -25,14 +20,17 @@ public:
     int largeur() const;
     std::pair<int, int> positionAleatoireLibrePourRobot() const;
 
-    void chargerTerrainDepuis(std::string chemin);
-    void sauverTerrainSur(std::string cheminFichier) const;
-    void afficherTerrain() const;
+    void chargerTerrainDepuis(string chemin);
+    void sauverTerrainSur(string cheminFichier) const;
     bool Obstacle(int x, int y) const;
 
     void modifierElementGrille(int x, int y, char ch);
     char afficherElementGrille(int x, int y) const;
     void donnerElementGrille(int x, int y, char ch);
+
+    void afficherTerrainUnicode(const int &x, const int &y, const string& forme)const;
+    void afficherTerrainASCII(const int &x, const int &y, const string& forme) const;
+    void afficherTerrainSimple(const int &x, const int &y, const string& forme) const;
 };
 
 #endif

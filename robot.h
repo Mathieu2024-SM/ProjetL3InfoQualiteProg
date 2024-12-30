@@ -3,6 +3,9 @@
 
 #include "observateur.h"
 #include <vector>
+#include <string>
+
+using std::string;
 
 class Terrain;
 
@@ -10,7 +13,7 @@ class Robot {
 private:
     int d_x, d_y;
     int d_orientation;
-    char d_formeRobot;
+    string d_formeRobot;
     std::vector<observateur*> d_listeObservateurs;
 
 public:
@@ -21,7 +24,8 @@ public:
     int getX() const;
     int getY() const;
     int orientation() const;
-    char formeRobot() const;
+    std::vector<observateur*> getObservateurs() const;
+    string formeRobot() const;
 
     void placerSur(int newX, int newY);
     void modifierFormeSelon(int orientation);
@@ -34,6 +38,7 @@ public:
 
     bool ObstacleDevant(const Terrain& t);
     bool ObstacleDroite(const Terrain& t);
+    void positionnerAleatoirementSur(const Terrain& terrain);
 
 };
 

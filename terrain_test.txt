@@ -1,5 +1,6 @@
 XXXXXXXXXX
-X........A
-X...…..X
-X...…...X
+X........X
+X..XXXXX.X
+X........X
+XXXXXX..AX
 XXXXXXXXXX

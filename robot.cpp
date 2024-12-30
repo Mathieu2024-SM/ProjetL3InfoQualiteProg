@@ -7,16 +7,10 @@
 Robot::Robot(int xInitial, int yInitial)
     : d_x(xInitial), d_y(yInitial), d_orientation{rand() % 4}
 {
-    switch(d_orientation)
-    {
-        case 2 : d_formeRobot = 'V'; break;
-        case 1 : d_formeRobot = '>'; break;
-        case 0 : d_formeRobot = '^'; break;
-        case 3 : d_formeRobot = '<'; break;
-    }
+    modifierFormeSelon(d_orientation);
 }
 
-Robot::Robot() : d_x(0), d_y(0), d_orientation(1), d_formeRobot('>') {}
+Robot::Robot() : d_x(0), d_y(0), d_orientation(1), d_formeRobot(">") {}
 
 // Destructeur
 Robot::~Robot() {
@@ -39,8 +33,12 @@ int Robot::orientation() const {
     return d_orientation;
 }
 
-char Robot::formeRobot()const{
+string Robot::formeRobot()const{
     return d_formeRobot;
+}
+
+std::vector<observateur*> Robot::getObservateurs() const {
+    return d_listeObservateurs;
 }
 
 void Robot::recupereEtat() {
@@ -58,10 +56,10 @@ void Robot::modifierFormeSelon(int orientation)
 {
     switch(d_orientation)
     {
-        case 2 : d_formeRobot = 'V'; break;
-        case 1 : d_formeRobot = '>'; break;
-        case 0 : d_formeRobot = '^'; break;
-        case 3 : d_formeRobot = '<'; break;
+        case 2 : d_formeRobot = "V"; break;
+        case 1 : d_formeRobot = ">"; break;
+        case 0 : d_formeRobot = "^"; break;
+        case 3 : d_formeRobot = "<"; break;
     }
 }
 
@@ -115,4 +113,18 @@ bool Robot::ObstacleDroite(const Terrain& t) {
     d_orientation = direction_conserve;
 
     return obstacle;
+}
+void Robot::positionnerAleatoirementSur(const Terrain& terrain) {
+    std::srand(std::time(nullptr)); // Initialisation du générateur aléatoire
+    int x, y;
+
+    // Recherche d'une case valide (par exemple, une case libre '.')
+    do {
+        x = std::rand() % terrain.hauteur();
+        y = std::rand() % terrain.largeur();
+    } while (terrain.afficherElementGrille(x, y) != '.'); // Vérifie si la case est libre
+
+    // Met à jour les coordonnées du robot
+    d_x = x;
+    d_y = y;
 }

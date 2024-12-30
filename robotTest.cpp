@@ -84,6 +84,14 @@ TEST_CASE("Test de la méthode avance")
     }
 }
 
+TEST_CASE("L'affichage de l'orientation est correct")
+{
+    Robot r;
+    int orientation = r.orientation();
+    r.modifierFormeSelon(orientation);
+    CHECK(r.formeRobot() == ">");
+}
+
 void testObservations(const Robot &r)
 {
     observateur* ob = new observateur(r.getX(),r.getY(), r.orientation());
