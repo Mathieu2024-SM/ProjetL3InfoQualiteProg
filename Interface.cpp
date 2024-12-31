@@ -5,6 +5,7 @@
 #include <thread>  // Pour std::this_thread::sleep_for
 #include <chrono>  // Pour std::chrono::seconds, std::chrono::milliseconds
 #include <string>
+#include <limits>
 
 using std::cout;
 using std::cin;
@@ -13,6 +14,11 @@ using std::string;
 
 Interface::Interface() : d_algo{nullptr}
 {}
+
+bool Interface::AffichageErreurPasDeTerrainCharger() const
+{
+    return d_terrain.hauteur() == 0 || d_terrain.largeur() == 0;
+}
 
 int Interface::choisirAlgo() {
     int choix;
@@ -35,32 +41,38 @@ int Interface::choisirAlgo() {
 }
 
 void Interface::choisirAffichage() {
-    int choix;
-    cout << "Choisissez le type d'affichage du terrain :\n";
-    cout << "0. Affichage Unicode\n";
-    cout << "1. Affichage ASCII\n";
-    cout << "Votre choix : ";
-    cin >> choix;
+    if (AffichageErreurPasDeTerrainCharger() == true) {
+        std::cout << "Veuillez d'abord charger un terrain.\n";
+    }
+    else{
+        int choix;
+        cout << "Choisissez le type d'affichage du terrain :\n";
+        cout << "0. Affichage Unicode\n";
+        cout << "1. Affichage ASCII\n";
+        cout << "Votre choix : ";
+        cin >> choix;
 
-    switch (choix) {
-        case TYPEUNICODE:
-            d_typeAffichage = TYPEUNICODE;
-            break;
-        case TYPEASCII:
-            d_typeAffichage = TYPEASCII;
-            break;
-        default:
-            cout << "Choix invalide. Affichage par défaut Simple sélectionné.\n";
-            break;
+        switch (choix) {
+            case TYPEUNICODE:
+                d_typeAffichage = TYPEUNICODE;
+                break;
+            case TYPEASCII:
+                d_typeAffichage = TYPEASCII;
+                break;
+            default:
+                cout << "Choix invalide. Affichage par défaut Simple sélectionné.\n";
+                break;
+        }
     }
 }
 
 void Interface::sauvegarderTerrain() const {
-    char choix;
-    cout << "\nSouhaitez-vous sauvegarder le terrain dans un fichier ? (o/n) : ";
-    cin >> choix;
+    if (AffichageErreurPasDeTerrainCharger() == true) {
+        std::cout << "Veuillez d'abord charger un terrain.\n";
+    }
 
-    if (choix == 'o' || choix == 'O') {
+    else
+    {
         string chemin;
         cout << "Entrez le nom du fichier de sauvegarde : ";
         cin >> chemin;
@@ -83,7 +95,6 @@ void Interface::sauvegarderTerrain() const {
 
 void Interface::afficherObservations() const
 {
-
     char choix;
     cout << "\nSouhaitez-vous afficher les déplacements du robot ? (o/n) : ";
     cin >> choix;
@@ -130,7 +141,7 @@ void Interface::afficherTerrain() {
 
 void Interface::exectuerAlgo()
 {
-    if (d_terrain.hauteur() == 0 || d_terrain.largeur() == 0) {
+    if (AffichageErreurPasDeTerrainCharger() == true) {
         std::cout << "Veuillez d'abord charger un terrain.\n";
     }
     else {
@@ -144,7 +155,7 @@ void Interface::exectuerAlgo()
             algo.typeAlgo(d_terrain, d_typeAffichage);
         }
         afficherObservations();
-        sauvegarderTerrain();
+        cout << "Retour au menu, vous pouvez continuer les tests avec le meme terrain ou le changer \n";
     }
 }
 
@@ -154,56 +165,76 @@ void Interface::supprimerAlgo()
     d_algo = nullptr;
 }
 
+bool Interface::lecture_Choix(int& choix)
+{
+    auto testChoix = choix;
+    std::cout << "Votre choix : " ;
+    while ( ! ( std::cin >> testChoix ) || testChoix < 1 || testChoix > 6 )
+    {
+        if ( std::cin.eof() )
+        {
+            // ^D  (^Z sous windows); Fin du flux d'entree !
+            return false;
+        }
+        else if ( std::cin.fail() )
+        {
+            std::cout << "Saisie incorrecte, recommencez : ";
+            std::cin.clear();
+            std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+        }
+        else
+        {
+            std::cout << "Le chiffre n'est pas entre 1 et 6, recommencez : ";
+        }
+    }
+    choix = testChoix;
+    return true; // succès
+}
+
 void Interface::run() {
-    int choix;
+    int choix ;
     do {
         cout << "\n===== Menu Principal =====\n";
         cout << "1. Charger un terrain (format simple)\n";
         cout << "2. Choisir le type d'affichage \n";
         cout << "3. Afficher le terrain\n";
         cout << "4. Lancer un algorithme\n";
-        cout << "5. Quitter\n";
-        cout << "Votre choix : ";
-        cin >> choix;
+        cout << "5. Sauvegarder le terrain \n";
+        cout << "6. Quitter\n";
 
-        switch (choix) {
-            case 1:
-                chargerTerrain();
-                break;
+        if(lecture_Choix(choix))
+        {
+                switch (choix) {
+                case 1:
+                    chargerTerrain();
+                    break;
 
-            case 2:
-                if (d_terrain.hauteur() == 0 || d_terrain.largeur() == 0) {
-                    std::cout << "Veuillez d'abord charger un terrain.\n";
-                }
-                choisirAffichage();
-                break;
+                case 2:
+                    choisirAffichage();
+                    break;
 
-            case 3:
-                if (d_terrain.hauteur() == 0 || d_terrain.largeur() == 0) {
-                    std::cout << "Veuillez d'abord charger un terrain.\n";
-                }
-                else {
+                case 3:
                     afficherTerrain();
-                }
-                break;
+                    break;
 
-            case 4:
-                exectuerAlgo();
-                cout << "Retour au menu, vous pouvez continuer les tests avec le meme terrain ou le changer \n";
-                break;
+                case 4:
+                    exectuerAlgo();
+                    break;
 
-            case 5:
-                std::cout << "Fin des tests !\n";
-                break;
+                case 5:
+                    sauvegarderTerrain();
+                    break;
 
-            default:
-                std::cout << "Choix invalide. Réessayez.\n";
-                break;
+                case 6:
+                    supprimerAlgo();
+                    std::cout << "Fin des tests !\n";
+                    break;
+
+                default:
+                    std::cout << "Choix invalide. Reessayez.\n";
+                    break;
+            }
         }
-    }while (choix != 5);
 
-    supprimerAlgo();
+    }while (choix != 6);
 }
-
-
-

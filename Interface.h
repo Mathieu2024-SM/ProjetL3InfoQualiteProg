@@ -8,9 +8,8 @@
 
 
 class Interface {
-
-
 private:
+    bool AffichageErreurPasDeTerrainCharger() const;
     void afficherTerrain(); // Méthode d'affichage spécifique
     void chargerTerrain();
     int choisirAlgo();
@@ -19,6 +18,7 @@ private:
     void choisirAffichage();
     void exectuerAlgo();
     void supprimerAlgo();
+    bool lecture_Choix(int & choix);
 
     Terrain d_terrain;
     Robot d_robot;
