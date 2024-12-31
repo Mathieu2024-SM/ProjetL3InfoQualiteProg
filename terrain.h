@@ -21,8 +21,11 @@ public:
     std::pair<int, int> positionAleatoireLibrePourRobot() const;
 
     void chargerTerrainDepuis(string chemin);
-    void sauverTerrainSur(string cheminFichier) const;
     bool Obstacle(int x, int y) const;
+
+    void sauverTerrainSur(string cheminFichier) const;
+    void sauverTerrainASCIISur(const string& chemin, const int& robotX, const int& robotY, const string& formeRobot) const;
+    void sauverTerrainUnicodeSur(const string& chemin, const int& robotX, const int& robotY, const string& formeRobot) const;
 
     void modifierElementGrille(int x, int y, char ch);
     char afficherElementGrille(int x, int y) const;

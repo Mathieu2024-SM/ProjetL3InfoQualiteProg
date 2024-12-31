@@ -23,7 +23,7 @@ private:
     Terrain d_terrain;
     Robot d_robot;
     Algorithme* d_algo = nullptr;
-    int d_typeAffichage = TYPEASCII;
+    int d_typeAffichage = TYPESIMPLE;
 
     static constexpr int TYPEUNICODE = 0;
     static constexpr int TYPEASCII = 1;

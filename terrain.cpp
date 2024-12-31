@@ -102,138 +102,31 @@ void Terrain::donnerElementGrille(int x, int y, char ch) {
 }
 
 void Terrain::afficherTerrainUnicode(const int &x, const int &y, const string& forme) const {
-    system("chcp 65001 > nul");  // Change l'encodage de la console pour UTF-8
-     cout << "\033[H\033[J";  // Code ANSI pour nettoyer la console
+    system("chcp 65001 > nul"); // Change l'encodage de la console pour UTF-8
+    cout << "\033[H\033[J";    // Code ANSI pour nettoyer la console
+
     for (int i = 0; i < d_grille.size(); ++i) {
         for (int j = 0; j < d_grille[i].size(); ++j) {
             // Afficher le robot à sa position
             if (i == x && j == y) {
-                //cout << forme;  // Affiche le robot sans espace
-                if(forme == ">")
-                    cout << "\u25B7"; //code unicode pour la fleche droite
-
-                else if (forme == "<")
-                    cout << "\u25C1";
-
-                else if (forme == "^")
-                    cout << "\u25B3";
-
-                else
-                    cout << "\u25BD";
-            }
-            else {
-                switch (d_grille[i][j]) {
-                    case '-':
-                        cout << "━";  // Mur horizontal
-                        break;
-                    case '.':
-                        cout << ".";  // Chemin libre, espace vide
-                        break;
-                    case 'A':
-                        cout << "▄";  // Objectif
-                        break;
-                    case '|':
-                        cout << "┃";  // Mur vertical
-                        break;
-                    case '+':
-                        // ┏ ┓ ┛ ┗ ┻ ┻ +
-                        // Gestion des coins : les tests sont organisés par direction
-                        if (i > 0 && j > 0 && d_grille[i-1][j] == '|' && d_grille[i][j-1] == '-') {
-                            cout << "┛";  // Coin supérieur gauche
-                        } else if (i > 0 && j < d_grille[i].size()-1 && d_grille[i-1][j] == '|' && d_grille[i][j+1] == '-') {
-                            cout << "┗";  // Coin supérieur droit
-                        } else if (i < d_grille.size()-1 && j > 0 && d_grille[i+1][j] == '|' && d_grille[i][j-1] == '-') {
-                            cout << "┓";  // Coin inférieur gauche
-                        } else if (i < d_grille.size()-1 && j < d_grille[i].size()-1 && d_grille[i+1][j] == '|' && d_grille[i][j+1] == '-') {
-                            cout << "┏";  // Coin inférieur droit
-                        }
-                        // Si c'est un coin bas-droit, vérifier la jonction horizontale et verticale
-                        else if (i < d_grille.size() - 1 && j < d_grille[i].size() - 1 &&
-                                 d_grille[i+1][j] == '|' && d_grille[i][j+1] == '-') {
-                            cout << "┏";  // Coin inférieur droit (vérification spécifique)
-                        }
-                        else {
-                            cout << "+";  // Intersection ou autre cas
-                        }
-                        break;
-                    default:
-                        cout << d_grille[i][j];  // Affiche d'autres éléments
-                        break;
-                }
-            }
-        }
-        std::cout << '\n';  // Nouvelle ligne après chaque ligne du terrain
-    }
-}
-void Terrain::afficherTerrainASCII(const int &x, const int &y, const string& forme) const {
-    cout << "\033[H\033[J";  // Code ANSI pour nettoyer la console
-    for (int i = 0; i < d_grille.size(); ++i) {
-        for (int j = 0; j < d_grille[i].size(); ++j) {
-            // Afficher le robot à sa position
-            if (i == x && j == y) {
-                cout << forme;  // Affiche le robot sans espace
+                if (forme == ">") cout << "\u25B7";  // Flèche droite
+                else if (forme == "<") cout << "\u25C1";  // Flèche gauche
+                else if (forme == "^") cout << "\u25B3";  // Flèche haut
+                else cout << "\u25BD";  // Flèche bas
+            } else if (d_grille[i][j] == 'X') {
+                // Coins réels
+                if (i == 0 && j == 0) cout << "┏";  // Coin supérieur gauche
+                else if (i == 0 && j == d_grille[i].size() - 1) cout << "┓";  // Coin supérieur droit
+                else if (i == d_grille.size() - 1 && j == 0) cout << "┗";  // Coin inférieur gauche
+                else if (i == d_grille.size() - 1 && j == d_grille[i].size() - 1) cout << "┛";  // Coin inférieur droit
+                // Murs
+                else if (i == 0 || i == d_grille.size() - 1) cout << "━";  // Mur horizontal
+                else if (j == 0 || j == d_grille[i].size() - 1) cout << "┃";  // Mur vertical
+                else cout << "━";  // Espaces ou autres éléments non spécifiques
+            } else if (d_grille[i][j] == 'A') {
+                cout << "▄";  // Objectif
             } else {
-                switch (d_grille[i][j]) {
-                    case '-':
-                        cout << "-";  // Mur horizontal
-                        break;
-                    case '.':
-                        cout << ".";  // Chemin libre, espace vide
-                        break;
-                    case 'A':
-                        cout << "O";  // Objectif
-                        break;
-                    case '|':
-                        cout << "|";  // Mur vertical
-                        break;
-                    case '+':
-                        cout << "+";  // Intersection ou autre cas
-                        break;
-                    default:
-                        cout << d_grille[i][j];  // Affiche d'autres éléments
-                        break;
-                }
-            }
-        }
-        std::cout << '\n';  // Nouvelle ligne après chaque ligne du terrain
-    }
-}
-
-
-void Terrain::afficherTerrainSimple(const int &x, const int &y, const string& forme) const {
-    // Vérifie si la grille est vide
-    if (d_grille.empty() || d_grille[0].empty()) {
-        std::cout << "La grille est vide !\n";
-        return;
-    }
-
-    for (int i = 0; i < d_grille.size(); ++i) {
-        for (int j = 0; j < d_grille[i].size(); ++j) {
-            // Afficher le robot à sa position
-            if (i == x && j == y) {
-                cout << forme;  // Affiche le robot sans espace
-            } else {
-                // Afficher les éléments du terrain
-                switch (d_grille[i][j]) {
-                    case '-':
-                        cout << "X";  // Mur horizontal
-                        break;
-                    case '.':
-                        cout << ".";  // Chemin libre, espace vide
-                        break;
-                    case 'A':
-                        cout << "O";  // Objectif
-                        break;
-                    case '|':
-                        cout << "X";  // Mur vertical
-                        break;
-                    case '+':
-                        cout << "X";  // Intersection ou autre cas
-                        break;
-                    default:
-                        cout << d_grille[i][j];  // Affiche d'autres éléments
-                        break;
-                }
+                cout << d_grille[i][j];  // Chemins ou autres éléments
             }
         }
         cout << '\n';  // Nouvelle ligne après chaque ligne du terrain
@@ -241,9 +134,127 @@ void Terrain::afficherTerrainSimple(const int &x, const int &y, const string& fo
 }
 
 
+void Terrain::afficherTerrainASCII(const int &x, const int &y, const string& forme) const {
+    cout << "\033[H\033[J"; // Code ANSI pour nettoyer la console
 
+    for (int i = 0; i < d_grille.size(); ++i) {
+        for (int j = 0; j < d_grille[i].size(); ++j) {
+            // Afficher le robot à sa position
+            if (i == x && j == y) {
+                cout << forme;
+            } else if (d_grille[i][j] == 'X') {
+                // Gestion des caractères ASCII pour les murs
+                bool murHaut = i > 0 && d_grille[i - 1][j] == 'X';
+                bool murBas = i < d_grille.size() - 1 && d_grille[i + 1][j] == 'X';
+                bool murGauche = j > 0 && d_grille[i][j - 1] == 'X';
+                bool murDroit = j < d_grille[i].size() - 1 && d_grille[i][j + 1] == 'X';
 
+                if (murHaut && murBas && murGauche && murDroit) cout << "+";
+                else if (murHaut && murBas) cout << "|";
+                else if (murGauche && murDroit) cout << "-";
+                else cout << "+";
+            } else if (d_grille[i][j] == 'A') {
+                cout << "O";  // Objectif
+            } else {
+                cout << d_grille[i][j];
+            }
+        }
+        cout << '\n';
+    }
+}
 
+void Terrain::afficherTerrainSimple(const int &x, const int &y, const string& forme) const
+{
+    for (auto i = 0; i < d_grille.size(); i++) {
+        for (auto j = 0; j < d_grille[0].size(); j++) {
+            if (i == x && j == y) {
+                std::cout << forme << ' ';
+            } else {
+                std::cout << d_grille[i][j] << ' ';
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
+void Terrain::sauverTerrainASCIISur(const string& chemin, const int& x, const int& y, const string& forme) const {
+
+    std::ofstream fichierterrain(chemin);
+
+    if (!fichierterrain) {
+        std::cerr << "Erreur d'écriture du fichier en ASCII" << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < d_grille.size(); ++i) {
+        for (int j = 0; j < d_grille[i].size(); ++j) {
+            // Afficher le robot à sa position
+            if (i == x && j == y) {
+                fichierterrain << forme;
+            } else if (d_grille[i][j] == 'X') {
+                // Gestion des caractères ASCII pour les murs
+                bool murHaut = i > 0 && d_grille[i - 1][j] == 'X';
+                bool murBas = i < d_grille.size() - 1 && d_grille[i + 1][j] == 'X';
+                bool murGauche = j > 0 && d_grille[i][j - 1] == 'X';
+                bool murDroit = j < d_grille[i].size() - 1 && d_grille[i][j + 1] == 'X';
+
+                if (murHaut && murBas && murGauche && murDroit) fichierterrain << "+";
+                else if (murHaut && murBas) fichierterrain << "|";
+                else if (murGauche && murDroit) fichierterrain << "-";
+                else fichierterrain<< "+";
+            } else if (d_grille[i][j] == 'A') {
+                fichierterrain << "O";  // Objectif
+            } else {
+                fichierterrain << d_grille[i][j];
+            }
+        }
+        fichierterrain << '\n';
+    }
+
+    fichierterrain.close();
+}
+
+void Terrain::sauverTerrainUnicodeSur(const string& chemin, const int& x, const int& y, const string& forme) const {
+    system("chcp 65001 > nul"); // Change l'encodage de la console pour UTF-8
+    cout << "\033[H\033[J";    // Code ANSI pour nettoyer la console
+
+    std::ofstream fichierterrain(chemin);
+
+    if (!fichierterrain) {
+        std::cerr << "Erreur d'écriture du fichier en Unicode" << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < d_grille.size(); ++i) {
+        for (int j = 0; j < d_grille[i].size(); ++j) {
+            // Afficher le robot à sa position
+            if (i == x && j == y) {
+                if (forme == ">") fichierterrain << "\u25B7";  // Flèche droite
+                else if (forme == "<") fichierterrain << "\u25C1";  // Flèche gauche
+                else if (forme == "^") fichierterrain << "\u25B3";  // Flèche haut
+                else fichierterrain<< L"\u25BD";  // Flèche bas
+
+            } else if (d_grille[i][j] == 'X') {
+                // Coin
+                if (i == 0 && j == 0) fichierterrain << "┏";  // Coin supérieur gauche
+                else if (i == 0 && j == d_grille[i].size() - 1) fichierterrain << "┓";  // Coin supérieur droit
+                else if (i == d_grille.size() - 1 && j == 0) fichierterrain << "┗";  // Coin inférieur gauche
+                else if (i == d_grille.size() - 1 && j == d_grille[i].size() - 1) fichierterrain << "┛";  // Coin inférieur droit
+                // Murs
+                else if (i == 0 || i == d_grille.size() - 1) fichierterrain << "━";  // Mur horizontal
+                else if (j == 0 || j == d_grille[i].size() - 1) fichierterrain << "┃";  // Mur vertical
+                else fichierterrain << "━";  // Espaces ou autres éléments non spécifiques
+            } else if (d_grille[i][j] == 'A') {
+                fichierterrain << "▄";  // Objectif
+            } else {
+                fichierterrain << d_grille[i][j];  // Chemins ou autres éléments
+            }
+        }
+        fichierterrain << '\n';  // Nouvelle ligne après chaque ligne du terrain
+    }
+
+    fichierterrain.close();
+}
 
 
 
