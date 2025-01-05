@@ -1,4 +1,4 @@
-MEMBRES DU GROUPE
+# MEMBRES DU GROUPE
 
 SCHELLENBAUM Mathieu - chef de projet - L3 Informatique
 
@@ -8,7 +8,7 @@ ZEROUAL Samy - développeur - L3 Informatique
 
 BENTRANTI Kenza - développeuse - L3 Informatique
 
-BUTS ET OBJECTIFS DU PROJET
+# BUTS ET OBJECTIFS DU PROJET
 
 Le projet porte sur la gestion des déplacements d'un robot dans un labyrinthe et de valider le tout sous la forme de test.
 Voici les principaux objectifs et fonctionnalités à mettre en œuvre :
