@@ -1,7 +1,7 @@
 #include "observateur.h"
 #include <iostream>
 
-observateur::observateur(int positionX, int positionY, int direction)
+observateur::observateur(int positionX, int positionY, string direction)
     : d_positionX{positionX}, d_positionY{positionY}, d_direction{direction} {}
 
 int observateur::getPositionX() const
@@ -14,7 +14,7 @@ int observateur::getPositionY() const
     return d_positionY;
 }
 
-int observateur::getDirection() const
+string observateur::getDirection() const
 {
     return d_direction;
 }

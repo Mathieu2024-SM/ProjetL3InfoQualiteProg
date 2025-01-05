@@ -42,7 +42,7 @@ std::vector<observateur*> Robot::getObservateurs() const {
 }
 
 void Robot::recupereEtat() {
-    d_listeObservateurs.push_back(new observateur(d_x, d_y, d_orientation));
+    d_listeObservateurs.push_back(new observateur(d_x, d_y, d_formeRobot));
 }
 
 // Place le robot en ses nouvelles positions

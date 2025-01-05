@@ -50,7 +50,7 @@ void AlgoMainDroite::typeAlgo(Terrain& t, int& typeTerrain) {
         std::this_thread::sleep_for(std::chrono::milliseconds(250));
     }
 
-    std::cout << "Le robot a atteint la case d'arrivée !\n";
+    std::cout << "Le robot a atteint la case d'arrivee !\n";
 }
 
 AlgoPledge::AlgoPledge(Robot& r) : Algorithme(r) {}
@@ -96,7 +96,7 @@ void AlgoPledge::typeAlgo(Terrain& t, int& typeTerrain) {
         do {
             // Vérifier si le robot a atteint la case d'arrivée
             if (t.afficherElementGrille(d_robot.getX(), d_robot.getY()) == 'A') {
-                std::cout << "Le robot a atteint la case d'arrivée !" << std::endl;
+                std::cout << "Le robot a atteint la case d'arrivee !" << std::endl;
                 break;  // Fin de l'algorithme
             }
 
@@ -122,7 +122,7 @@ void AlgoPledge::typeAlgo(Terrain& t, int& typeTerrain) {
         } while (compteur != 0);  // Continuer à tourner tant que le compteur n'est pas à zéro
     }
 
-    std::cout << "Le robot a terminé l'algorithme de Pledge." << std::endl;
+    std::cout << "Le robot a termine l'algorithme de Pledge." << std::endl;
 }
 
 
