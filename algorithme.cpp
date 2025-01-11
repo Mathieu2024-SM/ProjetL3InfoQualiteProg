@@ -31,6 +31,14 @@ void AlgoMainDroite::afficherTerrainSelonType(Terrain& t, int& typeTerrain) cons
 // Implémentation spécifique pour l'affichage console
 void AlgoMainDroite::typeAlgo(Terrain& t, int& typeTerrain) {
     affecterPositionDebutRobot(t);  // Place le robot au début
+    
+    if(!d_robot.ObstacleDevant(t)){
+        while(!d_robot.ObstacleDevant(t)){
+            d_robot.avance();
+        afficherTerrainSelonType(t,typeTerrain);   
+        std::this_thread::sleep_for(std::chrono::milliseconds(250));             
+        }
+    }
 
     // Exécution de l'algorithme
     while (t.afficherElementGrille(d_robot.getX(), d_robot.getY()) != 'A') {
@@ -39,7 +47,7 @@ void AlgoMainDroite::typeAlgo(Terrain& t, int& typeTerrain) {
         } else if (!d_robot.ObstacleDroite(t)) {
             d_robot.tourneADroite();
             d_robot.avance();
-        } else {
+        } else{
             d_robot.avance();
         }
 
@@ -51,6 +59,7 @@ void AlgoMainDroite::typeAlgo(Terrain& t, int& typeTerrain) {
     }
 
     std::cout << "Le robot a atteint la case d'arrivee !\n";
+    
 }
 
 AlgoPledge::AlgoPledge(Robot& r) : Algorithme(r) {}
